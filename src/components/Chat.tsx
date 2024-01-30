@@ -51,7 +51,7 @@ const Chat: React.FC = () => {
     return (
         <>
             <div>
-                <h2 className='font-bold text-4xl flex justify-center mt-8 '>
+                <h2 className='font-bold text-4xl flex justify-center mt-6 '>
                     Chat App
                 </h2>
                 <div className='border-2 max-w-96 '>
