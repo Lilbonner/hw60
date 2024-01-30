@@ -1,15 +1,10 @@
 import './App.css'
-import './index.css'
-
+import Chat from "./components/Chat.tsx";
 function App() {
 
   return (
     <>
-     <div>
-         <h1 className="text-3xl italic font-bold ml-3 ">
-             Hello world!
-         </h1>
-     </div>
+     <Chat/>
     </>
   )
 }
