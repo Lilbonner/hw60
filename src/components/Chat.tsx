@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axiosApi from '../axiosApi';
+import dayjs from 'dayjs';
 
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState<any[]>([]);
     const [newMessage, setNewMessage] = useState('');
     const [author, setAuthor] = useState('YourName');
     const [lastMessageDate, setLastMessageDate] = useState('');
+
+    const formatDateTime = (datetime: string) => {
+        return dayjs(datetime).format('DD.MM.YY HH:mm');
+    };
 
     const fetchMessages = async () => {
         try {
@@ -26,7 +31,7 @@ const Chat: React.FC = () => {
 
     const sendMessage = async () => {
         try {
-            const url = '/messages'; // Use relative path
+            const url = '/messages';
             const data = new URLSearchParams();
             data.set('message', newMessage);
             data.set('author', author);
@@ -51,22 +56,22 @@ const Chat: React.FC = () => {
     return (
         <>
             <div>
-                <h2 className='font-bold text-4xl flex justify-center mt-8 '>
+                <h2 className='text-white bg-gray-600 font-bold text-4xl flex justify-center py-5'>
                     Chat App
                 </h2>
-                <div className='border-2 max-w-96 '>
+                <div className='border-2 bg-gray-300'>
                     {messages.map((message) => (
-                        <div key={message._id}>
+                        <div className='border-2 rounded-lg' key={message._id}>
                             <p>{message.message}</p>
                             <p>Author: {message.author}</p>
-                            <p>Date and Time: {message.datetime}</p>
+                            <p>Date and Time: {formatDateTime(message.datetime)}</p>
                         </div>
                     ))}
                 </div>
             </div>
-            <div>
+            <div className='bg-gray-400 bottom-0 w-full shadow-lg py-1'>
                 <input
-                    className='border-2 rounded-lg '
+                    className='input w-full focus:outline-none bg-gray-100 rounded-r-none'
                     type="text"
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
@@ -74,14 +79,14 @@ const Chat: React.FC = () => {
                     required
                 />
                 <input
-                    className='border-2 rounded-lg text-blue-500'
+                    className='border-2 bg-gray-100 rounded mt-2'
                     type="text"
                     value={author}
                     onChange={(e) => setAuthor(e.target.value)}
                     placeholder="Your Name"
                     required
                 />
-                <button className='border-2 ml-1 rounded-lg text-blue-500' onClick={sendMessage}>Send</button>
+                <button className='w-auto bg-gray-500 text-white rounded-r-lg px-5 text-sm' onClick={sendMessage}>Send</button>
             </div>
         </>
     );
